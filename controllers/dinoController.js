@@ -1,5 +1,4 @@
 const express = require('express');
-const { append } = require('express/lib/response');
 const router = express.Router();
 const fs = require('fs');
 
@@ -18,12 +17,12 @@ router.get('/', (req, res) => {
 			return dino.name.toLowerCase() === nameFilter.toLowerCase();
 		});
 	}
-	res.render('index.ejs', { myDinos: dinoData });
+	res.render('./dinos/index.ejs', { myDinos: dinoData });
 });
 
 // new route (renders the new dino form)
 router.get('/new', (req, res) => {
-	res.render('new.ejs');
+	res.render('./dinos/new.ejs');
 });
 
 router.get('/edit/:idx', (req, res) => {
@@ -33,7 +32,7 @@ router.get('/edit/:idx', (req, res) => {
 	let dinoIndex = req.params.idx;
 	let targetDino = dinosData[dinoIndex];
 
-	res.render('edit.ejs', { dino: targetDino, dinoId: dinoIndex });
+	res.render('./dinos/edit.ejs', { dino: targetDino, dinoId: dinoIndex });
 });
 
 // show ie show all info about a single dino
@@ -43,11 +42,9 @@ router.get('/:idx', (req, res) => {
 	let dinosaurs = fs.readFileSync('./dinosaurs.json');
 	let dinoData = JSON.parse(dinosaurs);
 
-	console.log();
-
 	let dinoIndex = req.params.idx;
 	let targetDino = dinoData[dinoIndex];
-	res.render('show.ejs', { dino: targetDino });
+	res.render('./dinos/show.ejs', { dino: targetDino });
 });
 
 router.post('/', (req, res) => {
