@@ -1,7 +1,18 @@
+<form action="/dinosaurs" method="get">
+  <!-- for and the id attributes need to be the same -->
+  <label for="nameFilter">Filter by name</label>
+  <!-- if get then name is req.quary if its post  -->
+  <input type="text" name="nameFilter" id="nameFilter">
+  <button type="submit">Filter Results</button>
+</form>
+
 <ul>
-  <% myDinos.forEach(dino => { %>
+  <% myDinos.forEach((dino, i) => { %>
     <li>
       <%= dino.name %> is a <%= dino.type %> 
+      <form action="/dinosaurs/<%=i%>/?_method=DELETE" method="post">
+        <button type="submit">Delete</button>
+      </form>
     </li>
   <%  }) %> 
 </ul>
